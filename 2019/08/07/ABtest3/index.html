@@ -1,0 +1,883 @@
+<!DOCTYPE html>
+
+
+
+
+
+<html class="theme-next mist use-motion" lang="">
+<head>
+  <meta charset="UTF-8">
+<meta name="generator" content="Hexo 3.9.0">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png?v=7.3.0">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png?v=7.3.0">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png?v=7.3.0">
+  <link rel="mask-icon" href="/images/logo.svg?v=7.3.0" color="#222">
+
+<link rel="stylesheet" href="/css/main.css?v=7.3.0">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/ilyabirman-likely@2/release/likely.css">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '7.3.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    save_scroll: false,
+    copycode: {"enable":true,"show_result":false,"style":null},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":3,"unescape":false,"preload":false},
+    path: 'search.xml',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: 'Copy',
+      copy_success: 'Copied',
+      copy_failure: 'Copy failed'
+    }
+  };
+</script>
+
+  <meta name="description" content="Metrics for experimentTwo types of checksInvariant checking(Sanity Checking): Metrics that shouldn’t change across your experiment and your control. These metrics are used to check if the control and">
+<meta name="keywords" content="AB testing,Statistics">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Udacity A&#x2F;B Testing Summary Lesson 3 - Metrics">
+<meta property="og:url" content="http://yoursite.com/2019/08/07/ABtest3/index.html">
+<meta property="og:site_name" content="Shuo&#39;s Blog">
+<meta property="og:description" content="Metrics for experimentTwo types of checksInvariant checking(Sanity Checking): Metrics that shouldn’t change across your experiment and your control. These metrics are used to check if the control and">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-08-26T02:18:36.823Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Udacity A&#x2F;B Testing Summary Lesson 3 - Metrics">
+<meta name="twitter:description" content="Metrics for experimentTwo types of checksInvariant checking(Sanity Checking): Metrics that shouldn’t change across your experiment and your control. These metrics are used to check if the control and">
+  <link rel="canonical" href="http://yoursite.com/2019/08/07/ABtest3/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>Udacity A/B Testing Summary Lesson 3 - Metrics | Shuo's Blog</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  <div class="container sidebar-position-left">
+    <div class="headband"></div>
+    <a href="https://github.com/AdadaBdada" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Shuo's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+      
+      
+      
+        
+        <li class="menu-item menu-item-home">
+      
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Home</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-about">
+      
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>About</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-tags">
+      
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-categories">
+      
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Categories</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-archives">
+      
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a href="javascript:;" class="popup-trigger">
+        
+          <i class="menu-item-icon fa fa-search fa-fw"></i> <br>Search</a>
+      </li>
+    
+  </ul>
+
+    
+
+</nav>
+  <div class="site-search">
+    
+  <div class="popup search-popup">
+  <div class="search-header">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <div class="search-input-wrapper">
+      <input autocomplete="off" autocorrect="off" autocapitalize="none"
+             placeholder="Searching..." spellcheck="false"
+             type="text" id="search-input">
+    </div>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+  </div>
+  <div id="search-result"></div>
+</div>
+
+
+  </div>
+</div>
+    </header>
+
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content page-post-detail">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  <article class="post" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/08/07/ABtest3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Shuo Jin">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Shuo's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">Udacity A/B Testing Summary Lesson 3 - Metrics
+
+          
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              
+                
+              
+
+              <time title="Created: 2019-08-07 23:30:28" itemprop="dateCreated datePublished" datetime="2019-08-07T23:30:28-07:00">2019-08-07</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2019-08-25 19:18:36" itemprop="dateModified" datetime="2019-08-25T19:18:36-07:00">2019-08-25</time>
+              </span>
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/AB-testing/" itemprop="url" rel="index"><span itemprop="name">AB testing</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            <span class="post-meta-item" title="Views">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">Views: </span>
+              <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>
+            </span>
+          
+          <br>
+            <span class="post-meta-item" title="Symbols count in article">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Symbols count in article: </span>
+              
+              <span>5.5k</span>
+            </span>
+          
+            <span class="post-meta-item" title="Reading time">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Reading time &asymp;</span>
+              
+              <span>5 mins.</span>
+            </span>
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="Metrics-for-experiment"><a href="#Metrics-for-experiment" class="headerlink" title="Metrics for experiment"></a>Metrics for experiment</h1><h2 id="Two-types-of-checks"><a href="#Two-types-of-checks" class="headerlink" title="Two types of checks"></a>Two types of checks</h2><p><strong>Invariant checking(Sanity Checking)</strong>: Metrics that shouldn’t change across your experiment and your control. These metrics are used to check if the control and experiment groups are comparable.</p>
+<ul>
+<li>Are the populations the same?</li>
+<li>Do you have the same number of users across the two?</li>
+<li>Is the distribution the same?</li>
+<li>Do you have comparable numbers of users across countries, or by language?<a id="more"></a>
+
+</li>
+</ul>
+<p><strong>Evaluation</strong>: High level business metrics, user experience with the product</p>
+<ul>
+<li>High level business metrics(active users)<ul>
+<li>How much revenue you make?</li>
+<li>What your market share is？</li>
+<li>How many users you have?</li>
+</ul>
+</li>
+<li>Detailed metrics focus on user experience with actually using your product<ul>
+<li>7 day active? 28 day active? which event count towards activity?<br>eg. an automatic notification may not cout.</li>
+<li>How long they stay on your page?</li>
+</ul>
+</li>
+</ul>
+<p><strong>When you need these detailed metrics?</strong></p>
+<ul>
+<li><p>Maybe users aren’t finishing a class on audacity.<br>We don’t know why but we want to dig into the user experience for that class.</p>
+</li>
+<li><p>Maybe the video are taking too long to load, and we should look at latency.</p>
+</li>
+<li><p>Maybe some of the quizzes are particular difficult, and the students are having trouble with that</p>
+</li>
+<li><p>What we want is we have a set of techniques to help us really dig into that user experience.</p>
+</li>
+<li><p>User experience research<br>we can use in order to brainstorm metrics</p>
+</li>
+</ul>
+<h1 id="Characterize"><a href="#Characterize" class="headerlink" title="Characterize"></a>Characterize</h1><h2 id="Step-1-Come-up-with-a-high-level-concept-for-the-metric"><a href="#Step-1-Come-up-with-a-high-level-concept-for-the-metric" class="headerlink" title="Step 1: Come up with a high-level concept for the metric"></a>Step 1: Come up with a high-level concept for the metric</h2><p>This is usually a definition that everyone agrees with. These metrics can be as simple as click-through-rate, click-through-probability, number of active users</p>
+<h2 id="Step-2-Turn-the-high-level-metric-into-a-fully-realized-definition"><a href="#Step-2-Turn-the-high-level-metric-into-a-fully-realized-definition" class="headerlink" title="Step 2: Turn the high-level metric into a fully realized definition"></a>Step 2: Turn the high-level metric into a fully realized definition</h2><p>So, we saw in step 1 that — number of active users — is a high-level metrics. A fully realized version of it would be to define what active means. Is it a 1-minute active? Or 1 hour active? Or 7 day active? 28 day active? So, one thing to keep in mind when defining a fully realized metric is to decide on the time-stamp. The other thing you might want to consider, is the consistency across different browsers. Each browser might have a different way of interacting with your website and hence might be capturing data differently. Also, the latency might be different across different browsers and this might cause discrepancies.</p>
+<p>Now the effectiveness of these metrics, bank heavily on the data you use for computing them and hence, evaluating different techniques and sources of gathering data, deserve equal attention.</p>
+<h2 id="so-what-data-to-use"><a href="#so-what-data-to-use" class="headerlink" title="so what data to use?"></a>so what data to use?</h2><p>You would obviously be using data generated from your website like clicks, time spent on a page, page views, number of accounts created and so on to run an A/B test. But in addition to this data you can use external data generated by companies that focus on gathering data to answer interesting questions through surveys or you could hire companies to generate your own in-depth data using techniques like user experience research and focus groups. Data gathered from these techniques can serve as a good source to validate your metrics. This can be achieved by plotting trends and seasonal variability for internal data VS. external data and checking if they line up. Second, you can also use this data to generate ideas about using simple-to-measure metrics, as proxies for harder-to-measure metrics. An example of a harder-to-measure metric could be, measuring user satisfaction. In a study conducted, user reported satisfaction was compared to time spent on the website to establish a general correlation between the two. And through this correlation — duration or time spent on a website — which is easy to measure, was converted to a metric that was used as a proxy to measure user reported satisfaction.</p>
+<h2 id="Step-3-Summarize-measurements-into-a-single-metric"><a href="#Step-3-Summarize-measurements-into-a-single-metric" class="headerlink" title="Step 3: Summarize measurements into a single metric"></a>Step 3: Summarize measurements into a single metric</h2><p>So, far we just have direct data measurements like page views, clicks, latency and so on. But now we need to figure out a way to summarize these. To summarize a metric, we need to consider the following two characteristics of our final summary metrics:</p>
+<ol>
+<li><strong><span class="label primary">Sensitivity and robustness</span></strong>: We want our metric to be sensitive enough to capture the changes we care about, but at the same time the metric should be robust enough to not capture the changes, that we don’t care about. Sensitivity and robustness are important because they save us from type-I error (launching a change we don’t care about) and type-II error (failing to launch a change we care about). To measure sensitivity and robustness we can:</li>
+</ol>
+<ul>
+<li>Run experiments: If we have access to experimental data, then we can run experiments and see if the metric moves in conjunction to the changes. This would be a good test for sensitivity.</li>
+<li>A vs. A test (or A/A test): We can also use the experimental data to do an A vs. A test. In an A/A test, both control and treatment groups are exposed to the exact same change. If our metric moves across the two groups, then this would be a good indication, that the metric is not robust enough.</li>
+<li>Retrospective analysis: Now if we don’t have access to experimental data, then we can pull out some data that we archived, which was used to run a similar experiment in the past and see, if the metric that we are interested in, responds in a way we intend it to.</li>
+</ul>
+<ol start="2">
+<li>Distribution of the metric: Distribution is used to prioritize one particular metric over the others. Let’s say, we have a nice well-behaved distribution like the normal distribution, then mean or median would be a good choice. If the distribution is a skewed one, then percentiles would make a good choice.</li>
+</ol>
+
+    </div>
+
+    
+    
+    
+        
+      
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>Post author:  </strong>Shuo Jin</li>
+  <li class="post-copyright-link">
+    <strong>Post link: </strong>
+    <a href="http://yoursite.com/2019/08/07/ABtest3/" title="Udacity A/B Testing Summary Lesson 3 - Metrics">http://yoursite.com/2019/08/07/ABtest3/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>Copyright Notice:  </strong>All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> unless stating additionally.</li>
+</ul>
+</div>
+
+      
+
+      <footer class="post-footer">
+          
+            
+          
+          <div class="post-tags">
+            
+              <a href="/tags/AB-testing/" rel="tag"><i class="fa fa-tag"> AB testing </i></a>
+
+            
+              <a href="/tags/Statistics/" rel="tag"><i class="fa fa-tag"> Statistics </i></a>
+
+            
+          </div>
+        
+
+        
+  <div class="post-widgets">
+    <div class="social-share">
+      
+        
+          
+        
+
+        <div class="likely">
+          
+            <div class="twitter">Tweet</div>
+          
+            <div class="facebook">Share</div>
+          
+            <div class="linkedin">Link</div>
+          
+            <div class="gplus">Plus</div>
+          
+            <div class="vkontakte">Share</div>
+          
+            <div class="odnoklassniki">Class</div>
+          
+            <div class="telegram">Send</div>
+          
+            <div class="whatsapp">Send</div>
+          
+            <div class="pinterest">Pin</div>
+          
+        </div>
+      
+      
+    </div>
+  
+  </div>
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/2019/08/06/leetcodSQL/" rel="next" title="Leetcode SQL Summary">
+                  <i class="fa fa-chevron-left"></i> Leetcode SQL Summary
+                </a>
+              
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+              
+                <a href="/2019/08/15/ABtest/" rel="prev" title="Udacity A/B Testing Summary Lesson 1">
+                  Udacity A/B Testing Summary Lesson 1 <i class="fa fa-chevron-right"></i>
+                </a>
+              
+            </div>
+          </div>
+        
+      </footer>
+    
+  </div>
+  
+  
+  
+  </article>
+
+  </div>
+
+
+          </div>
+          
+
+        </div>
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image"
+      src="/images/avatar.gif"
+      alt="Shuo Jin">
+  <p class="site-author-name" itemprop="name">Shuo Jin</p>
+  <div class="site-description motion-element" itemprop="description"></div>
+</div>
+  <nav class="site-state motion-element">
+      <div class="site-state-item site-state-posts">
+        
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">4</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-categories">
+        
+          
+            <a href="/categories/">
+          
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">categories</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-tags">
+        
+          
+            <a href="/tags/">
+          
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">tags</span>
+        </a>
+      </div>
+    
+  </nav>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="https://github.com/AdadaBdada" title="GitHub &rarr; https://github.com/AdadaBdada" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+    
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="/sjin6@stevens.edu" title="E-Mail &rarr; sjin6@stevens.edu"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+      </span>
+    
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="https://www.linkedin.com/in/shuo-jin-95062613a/" title="LinkedIn &rarr; https://www.linkedin.com/in/shuo-jin-95062613a/" rel="noopener" target="_blank"><i class="fa fa-fw fa-linkedin"></i>LinkedIn</a>
+      </span>
+    
+  </div>
+  <div class="cc-license motion-element" itemprop="license">
+    
+  
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+
+        </div>
+      </div>
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Metrics-for-experiment"><span class="nav-text">Metrics for experiment</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Two-types-of-checks"><span class="nav-text">Two types of checks</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Characterize"><span class="nav-text">Characterize</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Step-1-Come-up-with-a-high-level-concept-for-the-metric"><span class="nav-text">Step 1: Come up with a high-level concept for the metric</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Step-2-Turn-the-high-level-metric-into-a-fully-realized-definition"><span class="nav-text">Step 2: Turn the high-level metric into a fully realized definition</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#so-what-data-to-use"><span class="nav-text">so what data to use?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Step-3-Summarize-measurements-into-a-single-metric"><span class="nav-text">Step 3: Summarize measurements into a single metric</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Shuo Jin</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+      <span class="post-meta-item-text">Symbols count total: </span>
+    
+    <span title="Symbols count total">64k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">Reading time total &asymp;</span>
+    
+    <span title="Reading time total">58 mins.</span>
+</div>
+  <div class="theme-info">Theme – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> v7.3.0</div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-user"></i>
+    </span>
+    <span class="site-uv" title="Total Visitors">
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+    </span>
+  
+    <span class="post-meta-divider">|</span>
+  
+    <span class="post-meta-item-icon">
+      <i class="fa fa-eye"></i>
+    </span>
+    <span class="site-pv" title="Total Views">
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+      </div>
+
+    
+  
+<script src="//cdn.jsdelivr.net/npm/ilyabirman-likely@2/release/likely.js"></script>
+
+
+  </div>
+
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+  
+  <script color='96,96,96' opacity='0.5' zIndex='-1' count='99' src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  <script src="/lib/jquery/index.js?v=3.4.1"></script>
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  <script defer src="/lib/three/three.min.js"></script>
+  <script defer src="/lib/three/three-waves.min.js"></script>
+  <script defer src="/lib/three/canvas_lines.min.js"></script>
+  <script defer src="/lib/three/canvas_sphere.min.js"></script>
+
+<script src="/js/utils.js?v=7.3.0"></script><script src="/js/motion.js?v=7.3.0"></script>
+
+<script src="/js/schemes/muse.js?v=7.3.0"></script>
+
+
+
+<script src="/js/next-boot.js?v=7.3.0"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <script src="/js/local-search.js?v=7.3.0"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+    
+      
+<script type="text/x-mathjax-config">
+
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$', '$'], ['\\(', '\\)'] ],
+      processEscapes: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      equationNumbers: {
+        autoNumber: 'AMS'
+      }
+    }
+  });
+
+  MathJax.Hub.Register.StartupHook('TeX Jax Ready', function() {
+    MathJax.InputJax.TeX.prefilterHooks.Add(function(data) {
+      if (data.display) {
+        var next = data.script.nextSibling;
+        while (next && next.nodeName.toLowerCase() === '#text') {
+          next = next.nextSibling;
+        }
+        if (next && next.nodeName.toLowerCase() === 'br') {
+          next.parentNode.removeChild(next);
+        }
+      }
+    });
+  });
+
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for (i = 0; i < all.length; i += 1) {
+      element = document.getElementById(all[i].inputID + '-Frame').parentNode;
+      if (element.nodeName.toLowerCase() == 'li') {
+        element = element.parentNode;
+      }
+      element.classList.add('has-jax');
+    }
+  });
+</script>
+<script>
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS-MML_HTMLorMML', () => {
+    MathJax.Hub.Typeset();
+  }, window.MathJax);
+</script>
+
+    
+  
+
+  
+
+  
+
+
+  
+  <script src="/js/scrollspy.js?v=7.3.0"></script><script src="/js/post-details.js?v=7.3.0"></script>
+
+
+</body>
+</html>

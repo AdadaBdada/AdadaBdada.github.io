@@ -1,0 +1,1051 @@
+<!DOCTYPE html>
+
+
+
+
+
+<html class="theme-next mist use-motion" lang="">
+<head>
+  <meta charset="UTF-8">
+<meta name="generator" content="Hexo 3.9.0">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png?v=7.3.0">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png?v=7.3.0">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png?v=7.3.0">
+  <link rel="mask-icon" href="/images/logo.svg?v=7.3.0" color="#222">
+
+<link rel="stylesheet" href="/css/main.css?v=7.3.0">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/ilyabirman-likely@2/release/likely.css">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '7.3.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    save_scroll: false,
+    copycode: {"enable":true,"show_result":false,"style":null},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":3,"unescape":false,"preload":false},
+    path: 'search.xml',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: 'Copy',
+      copy_success: 'Copied',
+      copy_failure: 'Copy failed'
+    }
+  };
+</script>
+
+  <meta name="description" content="OverviewWhat exactly is A/B testing? A/B testing is a general methodology used online when you want to test out a new product or a feature. And what you are doing is you are going to take two sets of">
+<meta name="keywords" content="AB testing,Statistics">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Udacity A&#x2F;B Testing Summary Lesson 1">
+<meta property="og:url" content="http://yoursite.com/2019/08/15/ABtest/index.html">
+<meta property="og:site_name" content="Shuo&#39;s Blog">
+<meta property="og:description" content="OverviewWhat exactly is A/B testing? A/B testing is a general methodology used online when you want to test out a new product or a feature. And what you are doing is you are going to take two sets of">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://yoursite.com/2019/08/15/ABtest/CI_1.png">
+<meta property="og:image" content="http://yoursite.com/2019/08/15/ABtest/CI_2.png">
+<meta property="og:image" content="http://yoursite.com/2019/08/15/ABtest/power.png">
+<meta property="og:image" content="http://yoursite.com/2019/08/15/ABtest/res1.png">
+<meta property="og:image" content="http://yoursite.com/2019/08/15/ABtest/res2.png">
+<meta property="og:image" content="http://yoursite.com/2019/08/15/ABtest/res3.png">
+<meta property="og:updated_time" content="2019-08-19T01:15:22.409Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Udacity A&#x2F;B Testing Summary Lesson 1">
+<meta name="twitter:description" content="OverviewWhat exactly is A/B testing? A/B testing is a general methodology used online when you want to test out a new product or a feature. And what you are doing is you are going to take two sets of">
+<meta name="twitter:image" content="http://yoursite.com/2019/08/15/ABtest/CI_1.png">
+  <link rel="canonical" href="http://yoursite.com/2019/08/15/ABtest/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>Udacity A/B Testing Summary Lesson 1 | Shuo's Blog</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  <div class="container sidebar-position-left">
+    <div class="headband"></div>
+    <a href="https://github.com/AdadaBdada" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Shuo's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+      
+      
+      
+        
+        <li class="menu-item menu-item-home">
+      
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Home</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-about">
+      
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>About</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-tags">
+      
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-categories">
+      
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Categories</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-archives">
+      
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a href="javascript:;" class="popup-trigger">
+        
+          <i class="menu-item-icon fa fa-search fa-fw"></i> <br>Search</a>
+      </li>
+    
+  </ul>
+
+    
+
+</nav>
+  <div class="site-search">
+    
+  <div class="popup search-popup">
+  <div class="search-header">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <div class="search-input-wrapper">
+      <input autocomplete="off" autocorrect="off" autocapitalize="none"
+             placeholder="Searching..." spellcheck="false"
+             type="text" id="search-input">
+    </div>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+  </div>
+  <div id="search-result"></div>
+</div>
+
+
+  </div>
+</div>
+    </header>
+
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content page-post-detail">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  <article class="post" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/08/15/ABtest/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Shuo Jin">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Shuo's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">Udacity A/B Testing Summary Lesson 1
+
+          
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              
+                
+              
+
+              <time title="Created: 2019-08-15 22:18:51" itemprop="dateCreated datePublished" datetime="2019-08-15T22:18:51-07:00">2019-08-15</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2019-08-18 18:15:22" itemprop="dateModified" datetime="2019-08-18T18:15:22-07:00">2019-08-18</time>
+              </span>
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/AB-testing/" itemprop="url" rel="index"><span itemprop="name">AB testing</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            <span class="post-meta-item" title="Views">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">Views: </span>
+              <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>
+            </span>
+          
+          <br>
+            <span class="post-meta-item" title="Symbols count in article">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Symbols count in article: </span>
+              
+              <span>14k</span>
+            </span>
+          
+            <span class="post-meta-item" title="Reading time">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Reading time &asymp;</span>
+              
+              <span>13 mins.</span>
+            </span>
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="Overview"><a href="#Overview" class="headerlink" title="Overview"></a>Overview</h1><h2 id="What-exactly-is-A-B-testing"><a href="#What-exactly-is-A-B-testing" class="headerlink" title="What exactly is A/B testing? "></a>What exactly is A/B testing? <a name="What-exactly-is-A/B-testing?"></a></h2><p>A/B testing is a general methodology used online when you want to test out a new product or a feature. And what you are doing is you are going to take two sets of users and shows the existing product or feature to <code>Control Group</code>, and show the new version to the <code>Experiment Group</code>. And you are going to see how did these users respond differently, in order to determin which version of your feature is better.</p>
+<a id="more"></a>
+
+<h2 id="Should-we-use-A-B-testing-for-every-change-you’re-considering"><a href="#Should-we-use-A-B-testing-for-every-change-you’re-considering" class="headerlink" title="Should we use A/B testing for every change you’re considering?"></a>Should we use A/B testing for every change you’re considering?<a name="Should-we-use-A/B-testing-for-every-change-you're-considering?"></a></h2><p>No. A/B testing isn’t as useful testing out <strong>new experiences</strong> There are two main problem shows below</p>
+<ul>
+<li><p><a href="https://library.gv.com/change-aversion-why-users-hate-what-you-launched-and-what-to-do-about-it-2fb94ce65766" target="_blank" rel="noopener"><code>Change Aversion</code></a>: Change aversion is the negative short-term reaction to changes in a product or service.</p>
+</li>
+<li><p><code>Novelty Effect</code>: When user found something new and they test out everything</p>
+</li>
+</ul>
+<p>Think about the following two questions when solve the new experiences problem.</p>
+<ol>
+<li>What is your baseline for comparison?</li>
+<li>How much time you need in order to actually have your users adapt to the new experience. And what is going to be the plateaued experience that we can actually make a robust decision?</li>
+</ol>
+<h2 id="What-other-technology-we-can-use-when-AB-test-is-not-useful"><a href="#What-other-technology-we-can-use-when-AB-test-is-not-useful" class="headerlink" title="What other technology we can use when AB test is not useful?"></a>What other technology we can use when AB test is not useful?<a name="When-A/B-testing-is-not-useful-we-can"></a></h2><blockquote>
+<p>A/B testing is really useful for helping you climb to the peak of your current mountain. But if you want figure out whether you want to be on this mountain or another mountain, A/B testing isn’t so useful.</p>
+<div align="left"> John Lily </div>
+</blockquote>
+<p>Often you’ll have logs of what users did on your website, you can analyze them retrospectively, or observationally, to see if a hypothesis can be developed about what’s causing changes in their behavior, and that’s something where you may want to go forward, and actually design a randomize and experiment</p>
+<h1 id="Audacity-Example"><a href="#Audacity-Example" class="headerlink" title="Audacity Example"></a>Audacity Example</h1><h2 id="Which-metric-to-use"><a href="#Which-metric-to-use" class="headerlink" title="Which metric to use?"></a>Which metric to use?<a name="Choose-a-metric"></a></h2><p>1.Total number of courses completed</p>
+<blockquote>
+<p>Using this metric would simply take too much time to be practical in our example.</p>
+</blockquote>
+<p>2.How many users actually click on the Start Now button (# of clicks)</p>
+<blockquote>
+<p>The assumption is that if more people click the button and thus move on to exploring the site, then eventually, some of them will create an account and go on to complete a course. In other words, increasing the rate at which users progress down the funnel at one level will have a positive impact on the end of the funnel as well</p>
+</blockquote>
+<p>3.Click-through-rate</p>
+<p>$$<br>CTR = \frac{Number \ of \ Clicks}{Number \ of \ Page \ Views}<br>$$</p>
+<p>4.Click-through-probability</p>
+<blockquote>
+<p>Defined as the number of unique visitors who click <code>at least once</code> divided by the number of unique visitors who view the page</p>
+</blockquote>
+<p>$$<br>CTP = \frac{Unique \ Visitor \ Who \ Click}{Unique \ Visitor \ to \ Page}<br>$$</p>
+<h3 id="When-Rate"><a href="#When-Rate" class="headerlink" title="When Rate?"></a>When Rate?<a name="What's the difference between CTR and CTP"></a></h3><p><code>Rate</code>: use a rate when you want to measure the <code>usability</code> of the site</p>
+<p>For example, you want to measure the usability of a particular button. You use a rate because the users have a variety of different places on the page that they can actually choose to click on. And so the rate will show how often do they actually find the button.</p>
+<h3 id="When-Probability"><a href="#When-Probability" class="headerlink" title="When Probability? "></a>When Probability? <a name="When-Probability"></a></h3><p><code>Probability</code>: When you want to measure the total impact</p>
+<p>If you just want to know how often users went to the second level page on your site, you use a probability beacuse you don’t want to count if users double-clicked, or did they reload, or all of those types of issues.</p>
+<h2 id="Review-statistics"><a href="#Review-statistics" class="headerlink" title="Review statistics"></a>Review statistics</h2><h3 id="Which-Distribuion"><a href="#Which-Distribuion" class="headerlink" title="Which Distribuion?"></a>Which Distribuion?<a name="Which-Distribution"></a></h3><blockquote>
+<p>There are certain distributions that commonly arise in statistics that can help give you some good guidelines for how <strong>variable</strong> your data is likely to be.</p>
+</blockquote>
+<blockquote>
+<p>Because instead of having continuous data, we have success and failures. Now for the binomial, we are in good shape in this example, because we can call a click success and no click failure.</p>
+</blockquote>
+<p><strong>Binomial Distribution</strong></p>
+<p>When you can you use the binomial distribution?</p>
+<ul>
+<li>two types of outcomes<ul>
+<li>Success</li>
+<li>Failure</li>
+</ul>
+</li>
+<li>Independent events</li>
+<li>Identical distribution<ul>
+<li>p same for all</li>
+</ul>
+</li>
+</ul>
+<h3 id="Confidence-Interval"><a href="#Confidence-Interval" class="headerlink" title="Confidence Interval"></a>Confidence Interval<a name="Confidence-Interval"></a></h3><blockquote>
+<p>We can use the formula we have for sample standard error for the binomial to estimate how variable we expect our overall probability of a click to be</p>
+</blockquote>
+<blockquote>
+<p>What that means is that for a 95% confidence interval if we theoretically repeated the experiment over and over again, we would expect the interval we construct around our central mean to cover the true value in population 95% percent of the time.</p>
+</blockquote>
+<div class="note info">
+            <p>The confidence interval is the probability that some value lies within a range</p>
+          </div>
+
+
+<p><a href="https://www.mathsisfun.com/data/confidence-interval.html" target="_blank" rel="noopener">Calculating a Confidence Interval</a></p>
+<ul>
+<li>Determine the confidence level and find the appropriate z*-value.</li>
+<li>Find the sample mean</li>
+</ul>
+<img src="/2019/08/15/ABtest/CI_1.png">
+<img src="/2019/08/15/ABtest/CI_2.png">
+
+
+<h3 id="Hypothesis-Testing"><a href="#Hypothesis-Testing" class="headerlink" title="Hypothesis Testing"></a>Hypothesis Testing<a name="Hypothesis-Testing"></a></h3><p>1.How we analyze the results?</p>
+<ul>
+<li>Hypothesis testing or inference</li>
+</ul>
+<div class="note info">
+            <p>To see whether a difference we observe in our experiment is actually significant</p>
+          </div>
+
+
+<p>  Hypothesis testing is a quantitative way to establish how likely it is that your results occurred by chance. So the fisrt thing we need is what’s called a hypothesis, or a baseline</p>
+<p>2.How to decide whether to reject the null?</p>
+<p>$$ H_{0} : P_{cont} - P{exp} = 0$$<br>$$ H_{1} : P_{cont} - P{exp} \neq 0 $$</p>
+<p>The potentially gives two different distribution if changing the color botton had no effect, then we would expect the two groups have equivalent distribution</p>
+<ul>
+<li>Measure $\hat P_{cont}$ and $\hat P_{exp}$</li>
+<li>Calculate $ P( \hat P_{cont} - \hat P_{exp} | H_{0}) $</li>
+</ul>
+<p>Reject Null if  $ P&lt; 0.05 $ (0.05 is called $ \alpha $)</p>
+<h3 id="Pooled-Standard-Error"><a href="#Pooled-Standard-Error" class="headerlink" title="Pooled Standard Error"></a>Pooled Standard Error<a name="Pooled-Standard-Error"></a></h3><h3 id="Compare-two-smaples"><a href="#Compare-two-smaples" class="headerlink" title="Compare two smaples"></a>Compare two smaples</h3><ul>
+<li>We have the control side, which may have a different number of users from the experiment side</li>
+<li>So we need to compare the <strong>proportion</strong> of clicks estimated on the control side with the <strong>proportion</strong> estimated on the experiment side</li>
+</ul>
+<center>$X_{cont}$: # of users who click in control group</center>
+<center>$X_{exp}$:  # of users who click experiment group</center>
+<center>$N_{cont}$: # of users in control group</center>
+<center>$N_{exp}$:  # of users in experiment group</center>
+
+
+<ul>
+<li>Pooled probability of a click $$ \hat P_{pool} = \frac{X_{cont}\ +\ X_{exp}}{N_{cont}\ +\ N{exp}} $$</li>
+<li>Pooled standard error: $$SE_{pool} = \sqrt {\hat P_{pool} \times(1- \hat P_{pool}) \times (\frac {1}{N_{cont}} + \frac {1}{N_{next}})}$$</li>
+<li>Estimate the difference between $P_{exp}$ and $P_{cont}$</li>
+</ul>
+<p>$$ H\hat d = \hat P_{exp} - \hat P_{cont} $$</p>
+<p>$$ H_{0} : d = 0 $$</p>
+<p>We would expect our estimation $ \hat d$ to be distributed normally with the mean of 0 and a standard deviation of the pooled standard error</p>
+<p>$$\hat d \sim \mathcal N(0, SE_{pool}) $$</p>
+<p>If the estimated $$ \hat d &gt; 1.96 \times SE_{pool}\  OR\   \hat d &lt; 1.96 \times SE_{pool}$$<br>then we can reject the null hypothesis as unlikely and say that our difference represents a statistically significant diffirence.</p>
+<p>1.96 is the $Z_{score}$</p>
+<h2 id="Design"><a href="#Design" class="headerlink" title="Design"></a>Design</h2><h3 id="Decided-from-a-business-perspective"><a href="#Decided-from-a-business-perspective" class="headerlink" title="Decided from a business perspective"></a>Decided from a business perspective<a name="Decided-from-a-business-perspective"></a></h3><ul>
+<li><p>What we have to do next in deciding from a business perspective, what change in the click-through probability is practically significant. In other words, What size change matters to us? What substantive in addition to being statistically significant?</p>
+</li>
+<li><p>What you really want to observe it <code>repeatability</code>. Statistical significance is about repeatability, and you want to make sure when you set up your experiment that you get that guarantee that these results are repeatable. So it’s statistically significant.</p>
+</li>
+<li><p>But you also want to make sure that if you see a change in your experiment that you’re interested in from a business standpoint, it’s practically significant is also statistically significant.</p>
+</li>
+<li><p>So you want to  <code>size</code> your experiment appropriately such that the statistical significance bar is actually lower than the practical significance bar.</p>
+</li>
+</ul>
+<h3 id="Size-vs-Power-Trade-off"><a href="#Size-vs-Power-Trade-off" class="headerlink" title="Size vs. Power Trade-off "></a>Size vs. Power Trade-off <a name="#Size-Power-Trade-off"></a></h3><p>Problem statement: Decided how many page views we need in order to get a statistically significant result (this called statistical power)</p>
+<p><code>Type I error</code>: False Positive<br>$$\alpha = P(reject\ H_{0} \ | \ H_{0}\ true)$$</p>
+<p><code>Type II error</code>: False Negative<br>$$\beta  = P(fail\ to\ reject\ H_{0} \ | \ H_{0}\ false)$$</p>
+<p><code>Power</code>: Sensitivity, in general, you want your experiment to have a high level of sensitivity at the practical significance boundary.</p>
+<p>$$\begin{align}<br>         Power &amp; = P(reject H_{0} \ | \ H_{0} false) \\ &amp; = 1 - P(fail\ to\ reject\ H_{0} \ | \ H_{0} \ false) \\ &amp; = P(not\ making\ Type\ II\ error)<br>        \end{align}$$</p>
+<img src="/2019/08/15/ABtest/power.png">
+<center> <div class="video-container"><iframe src="//www.youtube.com/embed/6_Cuz0QqRWc" frameborder="0" allowfullscreen></iframe></div></center>
+
+
+
+<h3 id="Calculating-Number-of-Pages-Views-Needed"><a href="#Calculating-Number-of-Pages-Views-Needed" class="headerlink" title="Calculating Number of Pages Views Needed"></a>Calculating Number of Pages Views Needed<a name="Calculating-Number-of-Pages-Views-Needed"></a></h3><p>Unique page views: $N = 1000$<br>Unique click: $X = 100$<br>Practical significance level: $d_{min} = 2 \% = 0.02$<br>Significance level $\alpha$: $\alpha = 0.05$ <em>Percent of the time a difference will be detected, assuming one does NOT exist</em><br>Statistical power 1−$\beta$: $ 1 - \beta = 0.8$ <em>Percent of the time the minimum effect size will be detected, assuming it exists</em></p>
+<p><a href="http://www.evanmiller.org/ab-testing/sample-size.html#!20;80;5;5;0" target="_blank" rel="noopener">Online calculator</a></p>
+<h3 id="How-number-of-page-views-varies"><a href="#How-number-of-page-views-varies" class="headerlink" title="How number of page views varies?"></a>How number of page views varies?</h3><table>
+<thead>
+<tr>
+<th>Change</th>
+<th>Increase page Views</th>
+<th>Decrease Page Views</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1. Higher click-through-probability in control(but still less than 0.5)</td>
+<td><center>$\checkmark$</center></td>
+<td></td>
+</tr>
+<tr>
+<td>2. Increased practical significance level  ($d_{min}$)</td>
+<td></td>
+<td><center>$\checkmark$</center></td>
+</tr>
+<tr>
+<td>3. Increased confidence level  (1 - $ \alpha $)</td>
+<td><center>$\checkmark$</center></td>
+<td></td>
+</tr>
+<tr>
+<td>4. High sensitivity  (1 - $\beta $)</td>
+<td><center>$\checkmark$</center></td>
+<td></td>
+</tr>
+</tbody></table>
+<ol>
+<li><p>how the click-through-probability would affect the number of page views needed?<br>Recall that the standard error depends on the click-through-probability $ SE = \sqrt{\frac{P \times (1-P)}{N}}$, specifically, the standard error is proportional to the square root of p times 1-p.<br>For example:</p>
+<ul>
+<li>$\sqrt{0.5 \times 0.5} = 0.5$ if the probability were 0.5, the standard error would be proportional to the square root of 0.5 times 0.5, which comes out of 0.5</li>
+<li>$\sqrt{0.1 \times 0.9} = 0.3$ if the probability were either 0.1 0r 0.9, then the standard error would be proportional to 0.3</li>
+</ul>
+<p>It turns out that as your probability gets closer to 0.5 and further away from extremes like 0.1 or 0.9, then your standard error increases. Thus increasing the click-through-probability but not above 0.5 would increase the standard error. Which means that I’d also need to increase the number of page views in order to reduce the standard error back to its original level.</p>
+</li>
+<li><p>If you want to increase your practical significance level, you’re saying you no longer care about detecting a 2% change. You would need the change to be larger than 2% before you cared about detecting it. Larger changes are easier to detect, so you shouldn’t need as many page views</p>
+</li>
+<li><p>If you increase your confidence level, you’re saying that you want to be more certain that a change has occurred before you reject the null. You could accomplish that by rejecting the null less often, but then you sensitivity would go down. If you want to keep the sensitivity the same, you’ll need to increase the number of page views you collect</p>
+</li>
+<li><p>As you’ve seen before, if you want to increase the sensitivity of your experiment, you’ll need to collect more page views to narrow the distribution.</p>
+</li>
+</ol>
+<h2 id="Analyze"><a href="#Analyze" class="headerlink" title="Analyze"></a>Analyze</h2><h3 id="Calculating-Results"><a href="#Calculating-Results" class="headerlink" title="Calculating Results"></a>Calculating Results<a name="Calculating-Results"></a></h3><p>practical significance level $ d_{min} = 0.02$<br>confidence level = 95%</p>
+<p>$$ N_{cont} = 10072  \ \    N_{exp} = 9886$$<br>$$X_{cont} = 974    \ \   X_{exp} = 1242 $$<br>$$ P_{pool} = \frac{974+1242}{10072+9886} = 0.111$$<br>$$ SE_{pool} = \sqrt{ + 0.111 \times (1-0.111)(\frac{1}{10072} + \frac{1}{9886})} = 0.00445$$<br>$$ \hat d = \frac{X_{exp}}{N_{exp}} - \frac{X_{cont}}{N_{cont}} = 0.0289 $$<br>$$ m = SE_{pool} \times 1.96 = 0.0087 $$ 1.96 is our Z score for our confidence level of 95%</p>
+<p>Lower bound of the confidence interval will be<br>$$ \hat d - m = 0.0202$$<br>Upper bound of the confidence interval will be<br>$$ \hat d + m = 0.0376$$</p>
+<p>We can conclude it is highly probable that click-through-probability changed by at least 2%, and we can be confident that we have at least that big of a change at the 95% level</p>
+<blockquote>
+<p>Based on this I would definitely launch the new version.</p>
+</blockquote>
+<h3 id="Confidence-Interval-Cases"><a href="#Confidence-Interval-Cases" class="headerlink" title="Confidence Interval Cases"></a>Confidence Interval Cases<a name="Confidence-Interval-Cases"></a></h3><p>The goal of running A/B tests is to gather data to make a decision and the reason we did the work of computing the power in the confidence intervals is so that we would understand how likely it is that our results are repeatable and robust, and make the right decison.</p>
+<p>If you consider the confidence interval for an evaluation metric statistic against the null baseline and practical significance bound, there are a few cases that can come about.</p>
+<ul>
+<li><strong>Confidence interval is fully in practical significance region</strong></li>
+</ul>
+<p>Below, $m_0$ indicates the null statistic value, $d_{min}$ the practical significance bound, and the blue line the confidence interval for the observed statistic. We assume that we’re looking for a positive change, ignoring the negative equivalent for $d_{min}$.</p>
+<img src="/2019/08/15/ABtest/res1.png">
+
+
+<p>If the confidence interval for the statistic does not include the null or the practical significance level, then the experimental manipulation can be concluded to have a statistically and practically significant effect. It is clearest in this case that the manipulation should be implemented as a success.</p>
+<ul>
+<li><strong>Confidence interval completely excludes any part of practical significance region</strong></li>
+</ul>
+<img src="/2019/08/15/ABtest/res2.png">
+
+<p>If the confidence interval does not include any values that would be considered practically significant, this is a clear case for us to not implement the experimental change. This includes the case where the metric is statistically significant, but whose interval does not extend past the practical significance bounds. With such a low chance of practical significance being achieved on the metric, we should be wary of implementing the change.</p>
+<ul>
+<li><strong>Confidence interval includes points both inside and outside practical significance bounds</strong></li>
+</ul>
+<img src="/2019/08/15/ABtest/res3.png">
+
+<p>This leaves the trickiest cases to consider, where the confidence interval straddles the practical significance bound. In each of these cases, there is an uncertain possibility of practical significance being achieved. In an ideal world, you would be able to collect more data to reduce our uncertainty, reducing the scenario to one of the previous cases. Outside of this, you’ll need to consider the risks carefully in order to make a recommendation on whether or not to follow through with a tested change. Your analysis might also reveal subsets of the population or aspects of the manipulation that do work, in order to refine further studies or experiments.</p>
+
+    </div>
+
+    
+    
+    
+        
+      
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>Post author:  </strong>Shuo Jin</li>
+  <li class="post-copyright-link">
+    <strong>Post link: </strong>
+    <a href="http://yoursite.com/2019/08/15/ABtest/" title="Udacity A/B Testing Summary Lesson 1">http://yoursite.com/2019/08/15/ABtest/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>Copyright Notice:  </strong>All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> unless stating additionally.</li>
+</ul>
+</div>
+
+      
+
+      <footer class="post-footer">
+          
+            
+          
+          <div class="post-tags">
+            
+              <a href="/tags/AB-testing/" rel="tag"><i class="fa fa-tag"> AB testing </i></a>
+
+            
+              <a href="/tags/Statistics/" rel="tag"><i class="fa fa-tag"> Statistics </i></a>
+
+            
+          </div>
+        
+
+        
+  <div class="post-widgets">
+    <div class="social-share">
+      
+        
+          
+        
+
+        <div class="likely">
+          
+            <div class="twitter">Tweet</div>
+          
+            <div class="facebook">Share</div>
+          
+            <div class="linkedin">Link</div>
+          
+            <div class="gplus">Plus</div>
+          
+            <div class="vkontakte">Share</div>
+          
+            <div class="odnoklassniki">Class</div>
+          
+            <div class="telegram">Send</div>
+          
+            <div class="whatsapp">Send</div>
+          
+            <div class="pinterest">Pin</div>
+          
+        </div>
+      
+      
+    </div>
+  
+  </div>
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/2019/08/07/ABtest3/" rel="next" title="Udacity A/B Testing Summary Lesson 3 - Metrics">
+                  <i class="fa fa-chevron-left"></i> Udacity A/B Testing Summary Lesson 3 - Metrics
+                </a>
+              
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+              
+                <a href="/2019/08/20/AB-test-concept/" rel="prev" title="AB_test_concept">
+                  AB_test_concept <i class="fa fa-chevron-right"></i>
+                </a>
+              
+            </div>
+          </div>
+        
+      </footer>
+    
+  </div>
+  
+  
+  
+  </article>
+
+  </div>
+
+
+          </div>
+          
+
+        </div>
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image"
+      src="/images/avatar.gif"
+      alt="Shuo Jin">
+  <p class="site-author-name" itemprop="name">Shuo Jin</p>
+  <div class="site-description motion-element" itemprop="description"></div>
+</div>
+  <nav class="site-state motion-element">
+      <div class="site-state-item site-state-posts">
+        
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">4</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-categories">
+        
+          
+            <a href="/categories/">
+          
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">categories</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-tags">
+        
+          
+            <a href="/tags/">
+          
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">tags</span>
+        </a>
+      </div>
+    
+  </nav>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="https://github.com/AdadaBdada" title="GitHub &rarr; https://github.com/AdadaBdada" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+    
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="/sjin6@stevens.edu" title="E-Mail &rarr; sjin6@stevens.edu"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+      </span>
+    
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="https://www.linkedin.com/in/shuo-jin-95062613a/" title="LinkedIn &rarr; https://www.linkedin.com/in/shuo-jin-95062613a/" rel="noopener" target="_blank"><i class="fa fa-fw fa-linkedin"></i>LinkedIn</a>
+      </span>
+    
+  </div>
+  <div class="cc-license motion-element" itemprop="license">
+    
+  
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+
+        </div>
+      </div>
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Overview"><span class="nav-text">Overview</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#What-exactly-is-A-B-testing"><span class="nav-text">What exactly is A/B testing? </span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Should-we-use-A-B-testing-for-every-change-you’re-considering"><span class="nav-text">Should we use A/B testing for every change you’re considering?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#What-other-technology-we-can-use-when-AB-test-is-not-useful"><span class="nav-text">What other technology we can use when AB test is not useful?</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Audacity-Example"><span class="nav-text">Audacity Example</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Which-metric-to-use"><span class="nav-text">Which metric to use?</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#When-Rate"><span class="nav-text">When Rate?</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#When-Probability"><span class="nav-text">When Probability? </span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Review-statistics"><span class="nav-text">Review statistics</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Which-Distribuion"><span class="nav-text">Which Distribuion?</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Confidence-Interval"><span class="nav-text">Confidence Interval</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Hypothesis-Testing"><span class="nav-text">Hypothesis Testing</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Pooled-Standard-Error"><span class="nav-text">Pooled Standard Error</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Compare-two-smaples"><span class="nav-text">Compare two smaples</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Design"><span class="nav-text">Design</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Decided-from-a-business-perspective"><span class="nav-text">Decided from a business perspective</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Size-vs-Power-Trade-off"><span class="nav-text">Size vs. Power Trade-off </span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Calculating-Number-of-Pages-Views-Needed"><span class="nav-text">Calculating Number of Pages Views Needed</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#How-number-of-page-views-varies"><span class="nav-text">How number of page views varies?</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Analyze"><span class="nav-text">Analyze</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Calculating-Results"><span class="nav-text">Calculating Results</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Confidence-Interval-Cases"><span class="nav-text">Confidence Interval Cases</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Shuo Jin</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+      <span class="post-meta-item-text">Symbols count total: </span>
+    
+    <span title="Symbols count total">64k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">Reading time total &asymp;</span>
+    
+    <span title="Reading time total">58 mins.</span>
+</div>
+  <div class="theme-info">Theme – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> v7.3.0</div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-user"></i>
+    </span>
+    <span class="site-uv" title="Total Visitors">
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+    </span>
+  
+    <span class="post-meta-divider">|</span>
+  
+    <span class="post-meta-item-icon">
+      <i class="fa fa-eye"></i>
+    </span>
+    <span class="site-pv" title="Total Views">
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+      </div>
+
+    
+  
+<script src="//cdn.jsdelivr.net/npm/ilyabirman-likely@2/release/likely.js"></script>
+
+
+  </div>
+
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+  
+  <script color='96,96,96' opacity='0.5' zIndex='-1' count='99' src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  <script src="/lib/jquery/index.js?v=3.4.1"></script>
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  <script defer src="/lib/three/three.min.js"></script>
+  <script defer src="/lib/three/three-waves.min.js"></script>
+  <script defer src="/lib/three/canvas_lines.min.js"></script>
+  <script defer src="/lib/three/canvas_sphere.min.js"></script>
+
+<script src="/js/utils.js?v=7.3.0"></script><script src="/js/motion.js?v=7.3.0"></script>
+
+<script src="/js/schemes/muse.js?v=7.3.0"></script>
+
+
+
+<script src="/js/next-boot.js?v=7.3.0"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <script src="/js/local-search.js?v=7.3.0"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+    
+      
+<script type="text/x-mathjax-config">
+
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$', '$'], ['\\(', '\\)'] ],
+      processEscapes: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      equationNumbers: {
+        autoNumber: 'AMS'
+      }
+    }
+  });
+
+  MathJax.Hub.Register.StartupHook('TeX Jax Ready', function() {
+    MathJax.InputJax.TeX.prefilterHooks.Add(function(data) {
+      if (data.display) {
+        var next = data.script.nextSibling;
+        while (next && next.nodeName.toLowerCase() === '#text') {
+          next = next.nextSibling;
+        }
+        if (next && next.nodeName.toLowerCase() === 'br') {
+          next.parentNode.removeChild(next);
+        }
+      }
+    });
+  });
+
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for (i = 0; i < all.length; i += 1) {
+      element = document.getElementById(all[i].inputID + '-Frame').parentNode;
+      if (element.nodeName.toLowerCase() == 'li') {
+        element = element.parentNode;
+      }
+      element.classList.add('has-jax');
+    }
+  });
+</script>
+<script>
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS-MML_HTMLorMML', () => {
+    MathJax.Hub.Typeset();
+  }, window.MathJax);
+</script>
+
+    
+  
+
+  
+
+  
+
+
+  
+  <script src="/js/scrollspy.js?v=7.3.0"></script><script src="/js/post-details.js?v=7.3.0"></script>
+
+
+</body>
+</html>
